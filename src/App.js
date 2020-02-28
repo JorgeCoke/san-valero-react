@@ -12,8 +12,29 @@ class App extends React.Component {
       todos: [
         {text: 'Comprar el pan'},
         {text: 'Aprender React'},
-        {text: 'Ir al cina'}
-      ]
+        {text: 'Ir al cine'}
+      ],
+      inputText: ''
+    };
+  }
+  
+  deleteTodo(index) {
+    let todos = this.state.todos;
+    todos.splice(index, 1);
+    this.setState({todos: todos});
+  }
+
+  limpiarTodos() {
+    this.setState({todos: []});
+  }
+
+  addTodo() {
+    if (this.state.inputText) {
+      let stateToUpdate = {
+        todos: [...this.state.todos, {text: this.state.inputText}], 
+        inputText: ''
+      };
+      this.setState(stateToUpdate);
     }
   }
 
@@ -25,23 +46,23 @@ class App extends React.Component {
           <p>
             San Valero & Hiberus - ToDo App
           </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          <Boton label="Añadir" onClick={() => alert('Has clickado Añadir')}></Boton>
-          <Boton label="Limpiar todo" onClick={() => alert('Has clickado Limpiar')}></Boton>
+
+          <input className="todo-input" type="text" value={this.state.inputText} 
+          onChange={(event) => this.setState({inputText: event.target.value})}></input>
+
+          <Boton label="Añadir" classes="success" onClick={() => this.addTodo()}></Boton>
 
           {
             this.state.todos.map((todo, index) => {
-              return (<TodoItem key={index} text={todo.text}></TodoItem>)
+              return (<TodoItem 
+                        key={index} 
+                        text={todo.text} 
+                        onClickDelete={() => this.deleteTodo(index)}>
+                      </TodoItem>)
             })
           }
 
+          <Boton label="Limpiar todo" classes="warning" onClick={() => this.limpiarTodos()}></Boton>
   
         </header>
       </div>

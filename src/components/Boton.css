@@ -1,6 +1,23 @@
 .boton {
     background-color: #fff;
-    border: 5px;
+    border-radius: 6px;
     margin: 8px;
     font-size: 18px;
+    font-weight: bold;
+}
+
+.danger {
+    color: red;
+}
+
+.success {
+    color: green;
+}
+
+.warning {
+    color: orange;
+}
+
+.todo-button {
+    float: right;
 }
