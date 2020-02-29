@@ -3,15 +3,17 @@ import logo from './logo.svg';
 import './App.css';
 import Boton from './components/Boton';
 import TodoItem from './components/TodoItem';
+import {useStoreState, useStoreActions} from 'easy-peasy';
 
 function App() {
 
-  const [todos, setTodos] = useState([
-    {text: 'Comprar el pan'},
-    {text: 'Aprender React'},
-    {text: 'Ir al cine'}
-  ]);
+  // Store
+  const todos = 
+    useStoreState(state => state.todos.items);
+  const addTodo = 
+    useStoreActions(actions => actions.todos.addTodo);
 
+  // Hook
   const [inputText, setInputText] = useState('');
   
     return (
@@ -30,7 +32,7 @@ function App() {
             label="Añadir" 
             classes="success" 
             onClick={() => {
-              setTodos([...todos, {text: inputText}])
+              addTodo({text: inputText})
               setInputText('')
             }}>
           </Boton>
@@ -41,9 +43,9 @@ function App() {
                         key={index} 
                         text={todo.text} 
                         onClickDelete={() => {
-                          setTodos([...todos.filter((todo, j) => {
-                            return j !== index // ! = =
-                          })])
+                          // setTodos([...todos.filter((todo, j) => {
+                          //   return j !== index // ! = =
+                          // })])
                         }}>
                       </TodoItem>)
             })
@@ -52,7 +54,9 @@ function App() {
           <Boton 
             label="Limpiar todo" 
             classes="warning" 
-            onClick={() => setTodos([])}>
+            onClick={() => {
+              // setTodos([])
+            }}>
           </Boton>
   
         </header>
