@@ -1,75 +1,63 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Boton from './components/Boton';
 import TodoItem from './components/TodoItem';
 
-class App extends React.Component {
+function App() {
 
-  constructor() {
-    super();
-    this.state = {
-      todos: [
-        {text: 'Comprar el pan'},
-        {text: 'Aprender React'},
-        {text: 'Ir al cine'}
-      ],
-      inputText: ''
-    };
-  }
+  const [todos, setTodos] = useState([
+    {text: 'Comprar el pan'},
+    {text: 'Aprender React'},
+    {text: 'Ir al cine'}
+  ]);
+
+  const [inputText, setInputText] = useState('');
   
-  deleteTodo(index) {
-    let todos = this.state.todos;
-    todos.splice(index, 1);
-    this.setState({todos: todos});
-  }
-
-  limpiarTodos() {
-    this.setState({todos: []});
-  }
-
-  addTodo() {
-    if (this.state.inputText) {
-      let stateToUpdate = {
-        todos: [...this.state.todos, {text: this.state.inputText}], 
-        inputText: ''
-      };
-      this.setState(stateToUpdate);
-    }
-  }
-
-  render() {
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            San Valero & Hiberus - ToDo App
-          </p>
+          <p>San Valero & Hiberus - ToDo App</p>
+          <input 
+            className="todo-input" 
+            type="text" 
+            value={inputText} 
+            onChange={(event) => setInputText(event.target.value)}>
+          </input>
 
-          <input className="todo-input" type="text" value={this.state.inputText} 
-          onChange={(event) => this.setState({inputText: event.target.value})}></input>
-
-          <Boton label="Añadir" classes="success" onClick={() => this.addTodo()}></Boton>
+          <Boton 
+            label="Añadir" 
+            classes="success" 
+            onClick={() => {
+              setTodos([...todos, {text: inputText}])
+              setInputText('')
+            }}>
+          </Boton>
 
           {
-            this.state.todos.map((todo, index) => {
+            todos.map((todo, index) => {
               return (<TodoItem 
                         key={index} 
                         text={todo.text} 
-                        onClickDelete={() => this.deleteTodo(index)}>
+                        onClickDelete={() => {
+                          setTodos([...todos.filter((todo, j) => {
+                            return j !== index // ! = =
+                          })])
+                        }}>
                       </TodoItem>)
             })
           }
 
-          <Boton label="Limpiar todo" classes="warning" onClick={() => this.limpiarTodos()}></Boton>
+          <Boton 
+            label="Limpiar todo" 
+            classes="warning" 
+            onClick={() => setTodos([])}>
+          </Boton>
   
         </header>
       </div>
     );
-  }
-
-  
 }
 
 export default App;
