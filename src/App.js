@@ -14,7 +14,8 @@ function App() {
     useStoreActions(actions => actions.todos.addTodo);
   const removeTodos = 
     useStoreActions(actions => actions.todos.removeTodos);
-  // Hook
+
+    // Hook
   const [inputText, setInputText] = useState('');
 
     return (
@@ -43,11 +44,7 @@ function App() {
               return (<TodoItem 
                         key={index} 
                         text={todo.text} 
-                        onClickDelete={() => {
-                          // setTodos([...todos.filter((todo, j) => {
-                          //   return j !== index // ! = =
-                          // })])
-                        }}>
+                        index={index}>
                       </TodoItem>)
             })
           }

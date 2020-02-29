@@ -19,6 +19,11 @@ const store = createStore({
         removeTodos: action((state, payload) => {
             state.items = [];
         }),
+        removeTodo: action((state, payload) => {
+            state.items = [...state.items.filter((todo, j) => {
+                  return j !== payload // ! = =
+                })]
+        })
     }
 });
 
