@@ -16,7 +16,7 @@ function App() {
     useStoreActions(actions => actions.todos.removeTodos);
   // Hook
   const [inputText, setInputText] = useState('');
-  
+
     return (
       <div className="App">
         <header className="App-header">
