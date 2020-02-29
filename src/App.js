@@ -15,7 +15,7 @@ function App() {
   const removeTodos = 
     useStoreActions(actions => actions.todos.removeTodos);
 
-    // Hook
+  // Hook
   const [inputText, setInputText] = useState('');
 
     return (
