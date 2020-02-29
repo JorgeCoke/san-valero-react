@@ -12,7 +12,8 @@ function App() {
     useStoreState(state => state.todos.items);
   const addTodo = 
     useStoreActions(actions => actions.todos.addTodo);
-
+  const removeTodos = 
+    useStoreActions(actions => actions.todos.removeTodos);
   // Hook
   const [inputText, setInputText] = useState('');
   
@@ -55,7 +56,7 @@ function App() {
             label="Limpiar todo" 
             classes="warning" 
             onClick={() => {
-              // setTodos([])
+              removeTodos()
             }}>
           </Boton>
   

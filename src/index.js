@@ -15,7 +15,10 @@ const store = createStore({
         ],
         addTodo: action((state, payload) => {
             state.items.push(payload)
-        })
+        }),
+        removeTodos: action((state, payload) => {
+            state.items = [];
+        }),
     }
 });
 
